@@ -1,0 +1,35 @@
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+mongoose.connect("mongodb://localhost:27017/shop", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const ProductSchema = new mongoose.Schema({
+  name: String,
+  price: Number,
+});
+
+const Product = mongoose.model("Product", ProductSchema);
+
+// Sample route to get products
+app.get("/api/products", async (req, res) => {
+  const products = await Product.find();
+  res.json(products);
+});
+
+// Sample route to add product (for testing)
+app.post("/api/products", async (req, res) => {
+  const newProduct = new Product(req.body);
+  await newProduct.save();
+  res.status(201).send("Product created");
+});
+
+app.listen(5000, () => console.log("Server running on http://localhost:5000"));
+
