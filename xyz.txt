@@ -1,0 +1,36 @@
+import React, { useEffect, useState } from "react";
+
+const ProductList = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/products")
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, []);
+
+  const addToCart = (product) => {
+    // Add cart logic
+    console.log("Add to cart:", product);
+  };
+
+  return (
+    <div className="grid grid-cols-3 gap-4 p-4">
+      {products.map((product) => (
+        <div key={product._id} className="p-4 shadow rounded bg-white">
+          <h2 className="text-xl font-semibold">{product.name}</h2>
+          <p>₹{product.price}</p>
+          <button
+            onClick={() => addToCart(product)}
+            className="bg-blue-500 text-white px-4 py-1 rounded mt-2"
+          >
+            Add to Cart
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default ProductList;
+
