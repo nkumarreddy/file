@@ -34,3 +34,11 @@ const ProductList = () => {
 
 export default ProductList;
 
+
+
+example:
+{
+  "name": "Bluetooth Headphones",
+  "price": 1299
+}
+
