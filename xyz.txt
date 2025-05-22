@@ -34,3 +34,6 @@ const ProductList = () => {
 
 export default ProductList;
 
+output:
+12344
+
